@@ -6,11 +6,15 @@ import os
 import logging
 from pathlib import Path
 
-# Import routes
-from routes import venues, users, bookings, services, wedding_tools, support
-
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
+
+# Initialize database
+from database import initialize_database
+db = initialize_database()
+
+# Import routes
+from routes import venues, users, bookings, services, wedding_tools, support
 
 # Create the main app without a prefix
 app = FastAPI(title="Hyderabad HallBook API", version="1.0.0")
@@ -60,5 +64,4 @@ async def startup_event():
 @app.on_event("shutdown")
 async def shutdown_event():
     logger.info("Hyderabad HallBook API shutting down...")
-    from database import db
     await db.close()
