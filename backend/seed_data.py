@@ -1,9 +1,11 @@
-from database import db
-from models import *
+from database import initialize_database
 import asyncio
+from models import *
 
 async def seed_venues():
     """Seed initial venue data"""
+    db = initialize_database()
+    
     venues_data = [
         VenueCreate(
             name="R K Function Hall",
