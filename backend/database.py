@@ -266,5 +266,11 @@ class Database:
         await self.faqs.insert_one(faq.dict())
         return faq
 
-# Database instance
-db = Database(os.environ['MONGO_URL'], os.environ['DB_NAME'])
+# Database instance will be initialized in server.py
+db = None
+
+def initialize_database():
+    global db
+    if db is None:
+        db = Database(os.environ.get('MONGO_URL'), os.environ.get('DB_NAME'))
+    return db
