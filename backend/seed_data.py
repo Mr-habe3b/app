@@ -76,6 +76,8 @@ async def seed_venues():
 
 async def seed_services():
     """Seed initial service data"""
+    db = initialize_database()
+    
     services_data = [
         Service(
             name="Catering Services",
